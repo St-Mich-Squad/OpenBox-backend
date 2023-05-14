@@ -1,0 +1,25 @@
+name: Deploy to server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:       
+    - name: ssh into server, update code, and run code
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          cd /home/OpenBox-backend
+          git pull
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python app.py
