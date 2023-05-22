@@ -20,3 +20,5 @@ jobs:
         script: |
           cd /home/OpenBox-backend
           git pull
+          source venv/bin/activate
+          supervisorctl reload
